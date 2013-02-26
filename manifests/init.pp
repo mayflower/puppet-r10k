@@ -1,14 +1,20 @@
-class r10k($configfile, $ensure = 'present') {
+class r10k(
+  $ensure     = 'present',
+  $configfile = 'undef'
+) {
+  include r10k::params
 
   package { 'r10k':
     ensure   => $ensure,
     provider => gem,
   }
 
-  file { '/etc/r10k.yaml':
-    ensure => present,
-    owner  => root,
-    group  => 0,
-    source => $configfile,
+  if $configfile != 'undef' {
+    file { '/etc/r10k.yaml':
+      ensure => present,
+      owner  => root,
+      group  => 0,
+      source => $configfile,
+    }
   }
 }

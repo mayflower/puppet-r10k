@@ -1,0 +1,9 @@
+:cachedir: <%= scope.lookupvar('r10k::config::cachedir') %>
+:sources: <% scope.lookupvar('r10k::config::sources').each do |source| %>
+  :<%= source[0] %>:<% source[1].each do |k,v| %>
+    <%= k %>: <%= v %><% end %>
+<% end %>
+
+:purgedirs: <% scope.lookupvar('r10k::config::purgedirs').each do |purgedir| %>
+  - <%= purgedir %>
+<% end %>
